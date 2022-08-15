@@ -258,18 +258,9 @@ entry_y.grid(row=0, column=3)
 border = ttk.Separator(frame_left, orient="horizontal")
 border.pack(fill=tkinter.X, pady=10)
 
-
-#クリアボタン
-btn_clr = tkinter.Button(frame_left, text="クリア", width=15, command=btn_clr_clicked)
-btn_clr.pack()
-
-#保存ボタン
-btn_save = tkinter.Button(frame_left, text="保存", width=15, command=btn_save_clicked)
-btn_save.pack(pady=5)
-
 #背景色
 label_bg_color = tkinter.Label(frame_left, width=10, bg=INIT_BG_COLOR)
-label_bg_color.pack(pady=(20,0))
+label_bg_color.pack(pady=5)
 btn_bg_color = tkinter.Button(frame_left, text="背景色" ,width=15, command=btn_bg_color_clicked)
 bg_color = INIT_BG_COLOR
 btn_bg_color.pack()
@@ -287,6 +278,15 @@ canvas_line_width.pack(pady=(20,5))
 canvas_line_width.create_line(0,10, 80,10, width=line_width)
 btn_line_width = tkinter.Button(frame_left, text="線の太さ", width=15, command=btn_line_width_clicked)
 btn_line_width.pack()
+
+
+#クリアボタン
+btn_clr = tkinter.Button(frame_left, text="クリア", width=15, command=btn_clr_clicked)
+btn_clr.pack(pady=(200,20))
+
+#保存ボタン
+btn_save = tkinter.Button(frame_left, text="保存", width=15, command=btn_save_clicked)
+btn_save.pack(pady=5)
 
 
 #キャンバス
