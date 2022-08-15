@@ -1,6 +1,4 @@
 import tkinter
-from turtle import color
-
 
 
 mouse_x = mouse_y = 0
@@ -85,14 +83,12 @@ def btn_clr_clicked():
     canvas.delete("all")    #キャンバス内を全クリア
 
 
-
 ############################################################
 #保存ボタンが押された
 ############################################################
 def btn_save_clicked():
     try:
         canvas.postscript(file="test.ps", colormode="color")
-
     except Exception as e:
         print(e)
 
@@ -115,7 +111,7 @@ def btn_bg_clicked():
     #キャンパスの背景色を変更
     canvas.config(bg=next_color)
 
-    
+
 
 
 root = tkinter.Tk()
@@ -142,7 +138,6 @@ label_bg = tkinter.Label(frame_left, text="背景色")
 label_bg.pack(pady=(20,0))
 btn_bg = tkinter.Button(frame_left, text="white" ,width=15, bg="white", command=btn_bg_clicked)
 btn_bg.pack()
-
 
 
 canvas = tkinter.Canvas(root, bg="WHITE", width=800, height=600)
