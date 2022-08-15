@@ -151,7 +151,7 @@ def btn_bg_color_clicked():
 #[線の色]ボタンが押された
 ############################################################
 def btn_line_color_clicked():
-    global color_list,line_color
+    global color_list,line_color,line_width
 
     idx = color_list.index(line_color) #現在の[線の色]のリスト位置取得
     next_color = color_list[idx+1]  #次の背景色を選択
@@ -161,6 +161,10 @@ def btn_line_color_clicked():
 
     #変更後の[線の色]を保存
     line_color = next_color
+
+    #サンプル画像の[線の色]も更新
+    canvas_line_width.delete("all")
+    canvas_line_width.create_line(0,10, 80,10, fill=line_color, width=line_width)
 
 
 ############################################################
@@ -175,7 +179,7 @@ def btn_line_width_clicked():
 
     #サンプル画像を更新
     canvas_line_width.delete("all")
-    canvas_line_width.create_line(0,10, 80,10, width=line_width)
+    canvas_line_width.create_line(0,10, 80,10, fill=line_color, width=line_width)
 
 
 ############################################################
