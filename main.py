@@ -1,4 +1,6 @@
 import tkinter
+from tkinter import ttk
+
 
 INIT_BG_COLOR="white"
 INIT_LINE_COLOR="black"
@@ -251,6 +253,10 @@ entry_y = tkinter.Entry(frame_canvas_size, width=5)
 entry_y.insert(tkinter.END, str(canvas_size_y)) #初期値設定
 entry_y.bind("<Key>", entry_y_event_handler)    #入力検出用イベントハンドラー
 entry_y.grid(row=0, column=3)
+
+#境界線
+border = ttk.Separator(frame_left, orient="horizontal")
+border.pack(fill=tkinter.X, pady=10)
 
 
 #クリアボタン
