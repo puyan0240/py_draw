@@ -6,7 +6,8 @@ mouse_old_x = mouse_old_y = 0
 mouse_in_canvas = mouse_left_pushed = False
 
 color_list = ["black","gray","white","blue","green","yellow","red","black"]
-color_name = ""
+bg_color = ""
+line_color = ""
 
 
 ############################################################
@@ -16,6 +17,7 @@ def mouse_move(e):
     global mouse_x,mouse_y
     global mouse_old_x,mouse_old_y
     global mouse_in_canvas,mouse_left_pushed
+    global line_color
 
     if mouse_in_canvas == False:
         return  #マウスがキャンバス内に居ない
@@ -29,7 +31,7 @@ def mouse_move(e):
     mouse_y = e.y
 
     #キャンバスに線を描く
-    canvas.create_line(mouse_x, mouse_y, mouse_old_x, mouse_old_y, fill=color_name, width=1)
+    canvas.create_line(mouse_x, mouse_y, mouse_old_x, mouse_old_y, fill=line_color, width=1)
 
 
 ############################################################
@@ -99,37 +101,38 @@ def btn_save_clicked():
 ############################################################
 #背景色ボタンが押された
 ############################################################
-def btn_bg_clicked():
-    global color_list
+def btn_bg_color_clicked():
+    global color_list,bg_color
 
-    now_color = btn_bg["text"]  #現在の背景色
+    now_color = bg_color  #現在の背景色
     idx = color_list.index(now_color)
     next_color = color_list[idx+1]  #次の背景色を選択
 
     #ボタンのテキスト/色を変更
-    btn_bg.config(text=next_color, bg=next_color)
+    label_bg_color.config(bg=next_color)
 
     #キャンパスの背景色を変更
     canvas.config(bg=next_color)
 
+    #変更後の背景色を保存
+    bg_color = next_color
+
 
 ############################################################
-#文字色ボタンが押された
+#[線の色]ボタンが押された
 ############################################################
-def btn_color_clicked():
-    global color_list,color_name
+def btn_line_color_clicked():
+    global color_list,line_color
 
-    now_color = btn_color["text"]  #現在の背景色
+    now_color = line_color  #現在の[線の色]
     idx = color_list.index(now_color)
     next_color = color_list[idx+1]  #次の背景色を選択
 
     #ボタンのテキスト/色を変更
-    btn_color.config(text=next_color, bg=next_color)
+    label_line_color.config(bg=next_color)
 
-    #背景色を変更
-    color_name = next_color
-
-
+    #変更後の[線の色]を保存
+    line_color = next_color
 
 
 root = tkinter.Tk()
@@ -152,17 +155,18 @@ btn_save = tkinter.Button(frame_left, text="保存", width=15, command=btn_save_
 btn_save.pack(pady=5)
 
 #背景色
-label_bg = tkinter.Label(frame_left, text="背景色")
-label_bg.pack(pady=(20,0))
-btn_bg = tkinter.Button(frame_left, text="white" ,width=15, bg="white", command=btn_bg_clicked)
-btn_bg.pack()
+label_bg_color = tkinter.Label(frame_left, width=10, bg="white")
+label_bg_color.pack(pady=(20,0))
+btn_bg_color = tkinter.Button(frame_left, text="背景色" ,width=15, command=btn_bg_color_clicked)
+bg_color = "white"
+btn_bg_color.pack()
 
 #線の色
-label_bg = tkinter.Label(frame_left, text="線の色")
-label_bg.pack(pady=(20,0))
-btn_color = tkinter.Button(frame_left, text="black" ,width=15, bg="black", command=btn_color_clicked)
-color_name = "black"
-btn_color.pack()
+label_line_color = tkinter.Label(frame_left, width=10, bg="black")
+label_line_color.pack(pady=(20,5))
+btn_line_color = tkinter.Button(frame_left, text="線の色" ,width=15, command=btn_line_color_clicked)
+line_color = "black"
+btn_line_color.pack()
 
 
 
