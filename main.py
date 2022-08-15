@@ -87,7 +87,21 @@ def mousu_leave_canvs(e):
 #クリアボタンが押された
 ############################################################
 def btn_clr_clicked():
-    canvas.delete("all")    #キャンバス内を全クリア
+    global bg_color,line_color
+
+    #キャンバス内を全クリア
+    canvas.delete("all")
+
+    #背景色をクリア
+    bg_color = INIT_BG_COLOR
+    label_bg_color.config(bg=bg_color)
+    #キャンパスの背景色を変更
+    canvas.config(bg=bg_color)
+
+    #[線の色]をクリア
+    line_color = INIT_LINE_COLOR
+    label_line_color.config(bg=INIT_LINE_COLOR)
+
 
 
 ############################################################
@@ -106,8 +120,7 @@ def btn_save_clicked():
 def btn_bg_color_clicked():
     global color_list,bg_color
 
-    now_color = bg_color  #現在の背景色
-    idx = color_list.index(now_color)
+    idx = color_list.index(bg_color)  #現在の背景色のリスト位置取得
     next_color = color_list[idx+1]  #次の背景色を選択
 
     #ボタンのテキスト/色を変更
@@ -126,8 +139,7 @@ def btn_bg_color_clicked():
 def btn_line_color_clicked():
     global color_list,line_color
 
-    now_color = line_color  #現在の[線の色]
-    idx = color_list.index(now_color)
+    idx = color_list.index(line_color) #現在の[線の色]のリスト位置取得
     next_color = color_list[idx+1]  #次の背景色を選択
 
     #ボタンのテキスト/色を変更
