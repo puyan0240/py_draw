@@ -1,5 +1,7 @@
 import tkinter
 
+INIT_BG_COLOR="white"
+INIT_LINE_COLOR="black"
 
 mouse_x = mouse_y = 0
 mouse_old_x = mouse_old_y = 0
@@ -155,17 +157,17 @@ btn_save = tkinter.Button(frame_left, text="保存", width=15, command=btn_save_
 btn_save.pack(pady=5)
 
 #背景色
-label_bg_color = tkinter.Label(frame_left, width=10, bg="white")
+label_bg_color = tkinter.Label(frame_left, width=10, bg=INIT_BG_COLOR)
 label_bg_color.pack(pady=(20,0))
 btn_bg_color = tkinter.Button(frame_left, text="背景色" ,width=15, command=btn_bg_color_clicked)
-bg_color = "white"
+bg_color = INIT_BG_COLOR
 btn_bg_color.pack()
 
 #線の色
-label_line_color = tkinter.Label(frame_left, width=10, bg="black")
+label_line_color = tkinter.Label(frame_left, width=10, bg=INIT_LINE_COLOR)
 label_line_color.pack(pady=(20,5))
 btn_line_color = tkinter.Button(frame_left, text="線の色" ,width=15, command=btn_line_color_clicked)
-line_color = "black"
+line_color = INIT_LINE_COLOR
 btn_line_color.pack()
 
 
