@@ -79,6 +79,13 @@ def mousu_leave_canvs(e):
     mouse_release_left(e)
 
 
+############################################################
+#クリアボタンが押された
+############################################################
+def btn_clr_clicked():
+    canvas.delete("all")    #キャンバス内を全クリア
+
+
 
 root = tkinter.Tk()
 root.title("Draw")
@@ -88,11 +95,14 @@ root.bind("<Motion>", mouse_move)
 root.bind("<Button-1>", mouse_push_left)
 root.bind("<ButtonRelease-1>", mouse_release_left)
 
-
-frame_left = tkinter.Frame(root, width=250)
+frame_left = tkinter.Frame(root, padx=5, pady=5, width=200)
+frame_left.propagate(False)     #フーレムサイズの自動調整を無効にする
 frame_left.pack(side=tkinter.LEFT, fill=tkinter.Y)
+#クリアボタン
+btn_clr = tkinter.Button(frame_left, text="クリア", width=10, command=btn_clr_clicked)
+btn_clr.pack()
 
-canvas = tkinter.Canvas(root, bg="WHITE", width=800, height=800)
+canvas = tkinter.Canvas(root, bg="WHITE", width=800, height=600)
 canvas.bind("<Enter>", mousu_enter_canvas)
 canvas.bind("<Leave>", mousu_leave_canvs)
 
