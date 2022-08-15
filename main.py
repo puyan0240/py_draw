@@ -1,5 +1,5 @@
 import tkinter
-from tkinter import ttk
+
 
 
 mouse_x = mouse_y = 0
@@ -87,6 +87,17 @@ def btn_clr_clicked():
 
 
 
+############################################################
+#保存ボタンが押された
+############################################################
+def btn_save_clicked():
+    try:
+        canvas.postscript(file="test.ps", colormode="color")
+
+    except Exception as e:
+        print(e)
+
+
 root = tkinter.Tk()
 root.title("Draw")
 #root.geometry("600x400")
@@ -99,8 +110,14 @@ frame_left = tkinter.Frame(root, padx=5, pady=5, width=200)
 frame_left.propagate(False)     #フーレムサイズの自動調整を無効にする
 frame_left.pack(side=tkinter.LEFT, fill=tkinter.Y)
 #クリアボタン
-btn_clr = tkinter.Button(frame_left, text="クリア", width=10, command=btn_clr_clicked)
+btn_clr = tkinter.Button(frame_left, text="クリア", width=15, command=btn_clr_clicked)
 btn_clr.pack()
+
+#保存ボタン
+btn_save = tkinter.Button(frame_left, text="保存", width=15, command=btn_save_clicked)
+btn_save.pack(pady=5)
+
+
 
 canvas = tkinter.Canvas(root, bg="WHITE", width=800, height=600)
 canvas.bind("<Enter>", mousu_enter_canvas)
