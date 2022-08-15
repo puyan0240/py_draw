@@ -2,6 +2,9 @@ import tkinter
 
 INIT_BG_COLOR="white"
 INIT_LINE_COLOR="black"
+INIT_LINE_WIDTH=2
+MIN_LINE_WIDTH=1
+MAX_LINE_WIDTH=5
 
 mouse_x = mouse_y = 0
 mouse_old_x = mouse_old_y = 0
@@ -10,6 +13,7 @@ mouse_in_canvas = mouse_left_pushed = False
 color_list = ["black","gray","white","blue","green","yellow","red","black"]
 bg_color = ""
 line_color = ""
+line_width = INIT_LINE_WIDTH
 
 
 ############################################################
@@ -33,7 +37,7 @@ def mouse_move(e):
     mouse_y = e.y
 
     #キャンバスに線を描く
-    canvas.create_line(mouse_x, mouse_y, mouse_old_x, mouse_old_y, fill=line_color, width=1)
+    canvas.create_line(mouse_x, mouse_y, mouse_old_x, mouse_old_y, fill=line_color, width=line_width)
 
 
 ############################################################
@@ -87,7 +91,7 @@ def mousu_leave_canvs(e):
 #クリアボタンが押された
 ############################################################
 def btn_clr_clicked():
-    global bg_color,line_color
+    global bg_color,line_color,line_width
 
     #キャンバス内を全クリア
     canvas.delete("all")
@@ -102,6 +106,11 @@ def btn_clr_clicked():
     line_color = INIT_LINE_COLOR
     label_line_color.config(bg=INIT_LINE_COLOR)
 
+    #[線の太さ]をクリア
+    line_width = INIT_LINE_WIDTH
+    #サンプル画像を更新
+    canvas_line_width.delete("all")
+    canvas_line_width.create_line(0,10, 80,10, width=line_width)  
 
 
 ############################################################
@@ -149,6 +158,23 @@ def btn_line_color_clicked():
     line_color = next_color
 
 
+############################################################
+#[線の太さ]ボタンが押された
+############################################################
+def btn_line_width_clicked():
+    global line_width
+
+    line_width += 1
+    if line_width > MAX_LINE_WIDTH:
+        line_width = MIN_LINE_WIDTH
+
+    #サンプル画像を更新
+    canvas_line_width.delete("all")
+    canvas_line_width.create_line(0,10, 80,10, width=line_width)
+
+
+
+
 root = tkinter.Tk()
 root.title("Draw")
 #root.geometry("600x400")
@@ -182,6 +208,12 @@ btn_line_color = tkinter.Button(frame_left, text="線の色" ,width=15, command=
 line_color = INIT_LINE_COLOR
 btn_line_color.pack()
 
+#線の太さ
+canvas_line_width = tkinter.Canvas(frame_left, width=80, height=20)
+canvas_line_width.pack(pady=(20,5))
+canvas_line_width.create_line(0,10, 80,10, width=line_width)
+btn_line_width = tkinter.Button(frame_left, text="線の太さ", width=15, command=btn_line_width_clicked)
+btn_line_width.pack()
 
 
 canvas = tkinter.Canvas(root, bg="WHITE", width=800, height=600)
