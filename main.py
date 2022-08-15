@@ -6,6 +6,9 @@ INIT_LINE_WIDTH=2
 MIN_LINE_WIDTH=1
 MAX_LINE_WIDTH=5
 
+INIT_CANVAS_SIZE_X=800
+INIT_CANVAS_SIZE_y=600
+
 mouse_x = mouse_y = 0
 mouse_old_x = mouse_old_y = 0
 mouse_in_canvas = mouse_left_pushed = False
@@ -14,6 +17,8 @@ color_list = ["black","gray","white","blue","green","yellow","red","black"]
 bg_color = ""
 line_color = ""
 line_width = INIT_LINE_WIDTH
+canvas_size_x = INIT_CANVAS_SIZE_X
+canvas_size_y = INIT_CANVAS_SIZE_y
 
 
 ############################################################
@@ -173,6 +178,41 @@ def btn_line_width_clicked():
     canvas_line_width.create_line(0,10, 80,10, width=line_width)
 
 
+############################################################
+#入力検出用イベントハンドラー(X)
+############################################################
+def entry_x_event_handler(ev):
+    global canvas_size_x
+
+    if ev.keysym == "Return":   #エンター実行時のみ検出
+        try:
+            #入力値をキャンバスサイズに反映する
+            canvas_size_x = int(entry_x.get())
+            canvas.config(width=canvas_size_x)
+
+        except Exception as e: #入力値が異常の場合は元に戻す
+            entry_x.delete(0, tkinter.END)  #消す
+            entry_x.insert(tkinter.END, str(canvas_size_x))
+            return
+
+
+############################################################
+#入力検出用イベントハンドラー(X)
+############################################################
+def entry_y_event_handler(ev):
+    global canvas_size_y
+
+    if ev.keysym == "Return":   #エンター実行時のみ検出
+        try:
+            #入力値をキャンバスサイズに反映する
+            canvas_size_y = int(entry_y.get())
+            canvas.config(height=canvas_size_y)
+
+        except Exception as e: #入力値が異常の場合は元に戻す
+            entry_y.delete(0, tkinter.END)  #消す
+            entry_y.insert(tkinter.END, str(canvas_size_y))
+            return
+
 
 
 root = tkinter.Tk()
@@ -186,6 +226,29 @@ root.bind("<ButtonRelease-1>", mouse_release_left)
 frame_left = tkinter.Frame(root, padx=5, pady=5, width=200)
 frame_left.propagate(False)     #フーレムサイズの自動調整を無効にする
 frame_left.pack(side=tkinter.LEFT, fill=tkinter.Y)
+
+#キャンバスサイズ
+label_canvas_size = tkinter.Label(frame_left, text="キャンバスサイズ")
+label_canvas_size.pack()
+
+frame_canvas_size = tkinter.Frame(frame_left)
+frame_canvas_size.pack()
+#Xサイズ
+label_x = tkinter.Label(frame_canvas_size, text="X:")
+label_x.grid(row=0, column=0)
+entry_x = tkinter.Entry(frame_canvas_size, width=5)
+entry_x.insert(tkinter.END, str(canvas_size_x)) #初期値設定
+entry_x.bind("<Key>", entry_x_event_handler)    #入力検出用イベントハンドラー
+entry_x.grid(row=0, column=1)
+#Yサイズ
+label_y = tkinter.Label(frame_canvas_size, text="Y:")
+label_y.grid(row=0, column=2)
+entry_y = tkinter.Entry(frame_canvas_size, width=5)
+entry_y.insert(tkinter.END, str(canvas_size_y)) #初期値設定
+entry_y.bind("<Key>", entry_y_event_handler)    #入力検出用イベントハンドラー
+entry_y.grid(row=0, column=3)
+
+
 #クリアボタン
 btn_clr = tkinter.Button(frame_left, text="クリア", width=15, command=btn_clr_clicked)
 btn_clr.pack()
@@ -216,7 +279,8 @@ btn_line_width = tkinter.Button(frame_left, text="線の太さ", width=15, comma
 btn_line_width.pack()
 
 
-canvas = tkinter.Canvas(root, bg="WHITE", width=800, height=600)
+#キャンバス
+canvas = tkinter.Canvas(root, bg="WHITE", width=canvas_size_x, height=canvas_size_y)
 canvas.bind("<Enter>", mousu_enter_canvas)
 canvas.bind("<Leave>", mousu_leave_canvs)
 
