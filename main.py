@@ -185,39 +185,28 @@ def btn_line_width_clicked():
 
 
 ############################################################
-#入力検出用イベントハンドラー(X)
+#キャンバスサイズEntry入力検出用イベントハンドラー
 ############################################################
-def entry_x_event_handler(ev):
-    global canvas_size_x
+def entry_event_handler(ev):
+    global canvas_size_x,canvas_size_y
 
     if ev.keysym == "Return":   #エンター実行時のみ検出
-        try:
-            #入力値をキャンバスサイズに反映する
-            canvas_size_x = int(entry_x.get())
-            canvas.config(width=canvas_size_x)
-
-        except Exception as e: #入力値が異常の場合は元に戻す
+        try:    #入力値の整数確認
+            int(entry_x.get())
+        except Exception as e: #異常の場合は元に戻す
             entry_x.delete(0, tkinter.END)  #消す
             entry_x.insert(tkinter.END, str(canvas_size_x))
-            return
 
-
-############################################################
-#入力検出用イベントハンドラー(X)
-############################################################
-def entry_y_event_handler(ev):
-    global canvas_size_y
-
-    if ev.keysym == "Return":   #エンター実行時のみ検出
-        try:
-            #入力値をキャンバスサイズに反映する
-            canvas_size_y = int(entry_y.get())
-            canvas.config(height=canvas_size_y)
-
-        except Exception as e: #入力値が異常の場合は元に戻す
+        try:    #入力値の整数確認
+            int(entry_y.get())
+        except Exception as e: #異常の場合は元に戻す
             entry_y.delete(0, tkinter.END)  #消す
             entry_y.insert(tkinter.END, str(canvas_size_y))
-            return
+
+        #入力値をキャンバスサイズに反映する
+        canvas_size_x = int(entry_x.get())
+        canvas_size_y = int(entry_y.get())
+        canvas.config(width=canvas_size_x, height=canvas_size_y)
 
 
 
@@ -244,14 +233,14 @@ label_x = tkinter.Label(frame_canvas_size, text="X:")
 label_x.grid(row=0, column=0)
 entry_x = tkinter.Entry(frame_canvas_size, width=5)
 entry_x.insert(tkinter.END, str(canvas_size_x)) #初期値設定
-entry_x.bind("<Key>", entry_x_event_handler)    #入力検出用イベントハンドラー
+entry_x.bind("<Key>", entry_event_handler)    #入力検出用イベントハンドラー
 entry_x.grid(row=0, column=1)
 #Yサイズ
 label_y = tkinter.Label(frame_canvas_size, text="Y:")
 label_y.grid(row=0, column=2)
 entry_y = tkinter.Entry(frame_canvas_size, width=5)
 entry_y.insert(tkinter.END, str(canvas_size_y)) #初期値設定
-entry_y.bind("<Key>", entry_y_event_handler)    #入力検出用イベントハンドラー
+entry_y.bind("<Key>", entry_event_handler)    #入力検出用イベントハンドラー
 entry_y.grid(row=0, column=3)
 
 #境界線
