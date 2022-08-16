@@ -24,8 +24,8 @@ canvas_size_y = INIT_CANVAS_SIZE_y
 
 #キャンバスサイズ一括設定値
 canvas_size_tbl = [
-    ["400 x 300", 400, 300],
-    ["600 x 450", 600, 450],
+    #["400 x 300", 400, 300],
+    #["600 x 450", 600, 450],
     ["800 x 600", 800, 600],
     ["1200 x 900", 1200, 900],
     ["1600 x 1200", 1600, 1200],
@@ -260,7 +260,7 @@ for val in canvas_size_tbl:
     combobox_menu.append(val[0])
 v = tkinter.StringVar()
 combobox_canvas_size = ttk.Combobox(frame_left,textvariable=v, values=combobox_menu, state="readonly", width=15)
-combobox_canvas_size.current(2) #初期値設定
+combobox_canvas_size.current(0) #初期値設定
 combobox_canvas_size.bind("<<ComboboxSelected>>", combobox_canvas_size_changed) #選択変更イベントハンドラー
 combobox_canvas_size.pack(pady=5)
 
@@ -326,4 +326,5 @@ canvas.bind("<Leave>", mousu_leave_canvs)
 
 canvas.pack(side=tkinter.LEFT)
 
+root.resizable(False, False)    #ウィンドウサイズ固定
 root.mainloop()
