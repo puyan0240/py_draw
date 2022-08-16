@@ -286,6 +286,7 @@ btn_clr.pack(pady=(200,20))
 
 #保存ボタン
 btn_save = tkinter.Button(frame_left, text="保存", width=15, command=btn_save_clicked)
+btn_save.config(state=tkinter.DISABLED) #仮:今は仕組みがないため
 btn_save.pack(pady=5)
 
 
