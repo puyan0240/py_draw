@@ -22,6 +22,15 @@ line_width = INIT_LINE_WIDTH
 canvas_size_x = INIT_CANVAS_SIZE_X
 canvas_size_y = INIT_CANVAS_SIZE_y
 
+#キャンバスサイズ一括設定値
+canvas_size_tbl = [
+    ["400 x 300", 400, 300],
+    ["600 x 450", 600, 450],
+    ["800 x 600", 800, 600],
+    ["1200 x 900", 1200, 900],
+    ["1600 x 1200", 1600, 1200],
+]
+
 
 ############################################################
 #マウス移動
@@ -209,6 +218,25 @@ def entry_event_handler(ev):
         canvas.config(width=canvas_size_x, height=canvas_size_y)
 
 
+############################################################
+#キャンバスサイズ一括変更イベントハンドラー
+############################################################
+def combobox_canvas_size_changed(ev):
+    
+    for val in canvas_size_tbl:
+        if val[0] == combobox_canvas_size.get():
+            canvas_size_x = val[1]
+            canvas_size_y = val[2]
+
+            #キャンバスサイズを更新
+            canvas.config(width=canvas_size_x, height=canvas_size_y)
+            #キャンバスサイズEntryも同期させる
+            entry_x.delete(0, tkinter.END)
+            entry_x.insert(tkinter.END, str(canvas_size_x))
+            entry_y.delete(0, tkinter.END)
+            entry_y.insert(tkinter.END, str(canvas_size_y))
+            return
+
 
 root = tkinter.Tk()
 root.title("Draw")
@@ -242,6 +270,18 @@ entry_y = tkinter.Entry(frame_canvas_size, width=5)
 entry_y.insert(tkinter.END, str(canvas_size_y)) #初期値設定
 entry_y.bind("<Key>", entry_event_handler)    #入力検出用イベントハンドラー
 entry_y.grid(row=0, column=3)
+
+#キャンバスサイズ一括変更プルダウンメニュー
+combobox_menu = []  #メニューリスト作成
+for val in canvas_size_tbl:
+    combobox_menu.append(val[0])
+v = tkinter.StringVar()
+combobox_canvas_size = ttk.Combobox(frame_left,textvariable=v, values=combobox_menu, state="readonly", width=15)
+combobox_canvas_size.current(2) #初期値設定
+combobox_canvas_size.bind("<<ComboboxSelected>>", combobox_canvas_size_changed) #選択変更イベントハンドラー
+combobox_canvas_size.pack(pady=5)
+
+
 
 #境界線
 border = ttk.Separator(frame_left, orient="horizontal")
