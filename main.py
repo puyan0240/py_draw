@@ -254,6 +254,17 @@ frame_left.pack(side=tkinter.LEFT, fill=tkinter.Y)
 label_canvas_size = tkinter.Label(frame_left, text="キャンバスサイズ")
 label_canvas_size.pack()
 
+#キャンバスサイズ一括変更プルダウンメニュー
+combobox_menu = []  #メニューリスト作成
+for val in canvas_size_tbl:
+    combobox_menu.append(val[0])
+v = tkinter.StringVar()
+combobox_canvas_size = ttk.Combobox(frame_left,textvariable=v, values=combobox_menu, state="readonly", width=15)
+combobox_canvas_size.current(2) #初期値設定
+combobox_canvas_size.bind("<<ComboboxSelected>>", combobox_canvas_size_changed) #選択変更イベントハンドラー
+combobox_canvas_size.pack(pady=5)
+
+#キャンバスサイズ個別設定
 frame_canvas_size = tkinter.Frame(frame_left)
 frame_canvas_size.pack()
 #Xサイズ
@@ -270,17 +281,6 @@ entry_y = tkinter.Entry(frame_canvas_size, width=5)
 entry_y.insert(tkinter.END, str(canvas_size_y)) #初期値設定
 entry_y.bind("<Key>", entry_event_handler)    #入力検出用イベントハンドラー
 entry_y.grid(row=0, column=3)
-
-#キャンバスサイズ一括変更プルダウンメニュー
-combobox_menu = []  #メニューリスト作成
-for val in canvas_size_tbl:
-    combobox_menu.append(val[0])
-v = tkinter.StringVar()
-combobox_canvas_size = ttk.Combobox(frame_left,textvariable=v, values=combobox_menu, state="readonly", width=15)
-combobox_canvas_size.current(2) #初期値設定
-combobox_canvas_size.bind("<<ComboboxSelected>>", combobox_canvas_size_changed) #選択変更イベントハンドラー
-combobox_canvas_size.pack(pady=5)
-
 
 
 #境界線
